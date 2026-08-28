@@ -15,11 +15,11 @@ COPY requirements.txt .
 # Instalamos las librerías de Python necesarias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamos el resto del código y archivos del proyecto al contenedor
+# Copiamos el resto del código del proyecto al contenedor
 COPY . .
 
-# Exponemos el puerto por defecto
-EXPOSE 8501
+# Exponemos el puerto 8000 que utiliza FastAPI por defecto
+EXPOSE 8000
 
-# Comando por defecto para ejecutar el proyecto
-CMD ["python", "kddcup1999.py"]
+# Comando para ejecutar la API con Uvicorn de forma accesible desde cualquier IP externa del contenedor
+CMD ["uvicorn", "app.py:app", "--host", "0.0.0.0", "--port", "8000"]
