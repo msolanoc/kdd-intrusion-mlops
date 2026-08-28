@@ -1,0 +1,22 @@
+# Archivos de entorno y temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+env/
+
+# Base de datos local de MLflow y artefactos pesados (EXCLUIDOS de Git)
+mlflow.db
+mlflow.db-journal
+mlruns/
+
+# Datasets o archivos CSV grandes del proyecto
+*.csv
+*.parquet
+data/
+datasets/
+
+# Configuraciones del sistema operativo
+.DS_Store
+Thumbs.db
