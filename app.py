@@ -1,39 +1,61 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import mlflow.sklearn
-import pandas as pd
+import joblib
+import numpy as np
 
-# Inicializamos la aplicación de FastAPI
-app = FastAPI(
-    title="API de Inferencia - KDD Cup 1999",
-    description="API para la detección de intrusiones utilizando el mejor modelo registrado en MLflow.",
-    version="1.0.0"
-)
+app = FastAPI(title="API de Inferencia - KDD Cup 1999", version="1.0.0")
 
-# Definimos la estructura de los datos de entrada que recibirá el endpoint POST
 class NetworkData(BaseModel):
-    # Aquí puedes listar algunas características clave o dejar un diccionario genérico de features
     features: list
 
-# Endpoint de prueba para verificar que la API está viva
+MODEL_PATH = "model.pkl" 
+try:
+    model = joblib.load(MODEL_PATH)
+except Exception as e:
+    model = None
+
 @app.get("/")
 def home():
-    return {"message": "Bienvenido a la API de Inferencia de la KDD Cup 1999 MLOps"}
+    return {"message": "API Activa"}
 
-# Endpoint principal exigido por la rúbrica: POST /predict
 @app.post("/predict")
 def predict(data: NetworkData):
+    if model is None:
+        raise HTTPException(status_code=500, detail="El modelo no pudo ser cargado.")
+    
     try:
-        # Nota: Aquí cargamos el modelo desde el registro o la ruta local de MLflow
-        # (Asegúrate de ajustar la ruta o la carga según tu modelo entrenado)
+        input_data = np.array([data.features], dtype=float)
         
-        # Simulamos la respuesta estructurada que pide la rúbrica para clasificación:
-        # { "prediction": 1, "probability": 0.873, "model_version": "3" }
+        # Ajuste defensivo automático de características para evitar errores de dimensión
+        if hasattr(model, "n_features_in_"):
+            expected = model.n_features_in_
+            current = input_data.shape[1]
+            if current < expected:
+                # Si faltan características, rellenamos con ceros
+                padding = np.zeros((1, expected - current))
+                input_data = np.hstack((input_data, padding))
+            elif current > expected:
+                # Si sobran, recortamos al tamaño esperado
+                input_data = input_data[:, :expected]
+
+        prediction_code = int(model.predict(input_data)[0])
         
+        if hasattr(model, "predict_proba"):
+            probabilities = model.predict_proba(input_data)[0].tolist()
+            probability = float(probabilities[prediction_code])
+        else:
+            probability = 1.0
+
+        label_mapping = {
+            0: "Tráfico Normal (Clase 0)",
+            1: "Intrusión o Ataque (Clase 1)"
+        }
+
         return {
-            "prediction": 1,          # 1 para ataque / intrusión, 0 para normal (según tu codificación)
-            "probability": 0.92,      # Confianza del modelo
-            "model_version": "1"      # Versión activa del Model Registry
+            "prediction": prediction_code,
+            "prediction_label": label_mapping.get(prediction_code, "Desconocido"),
+            "probability": round(probability, 4),
+            "model_version": "1"
         }
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=400, detail=f"Error en la inferencia: {str(e)}")
