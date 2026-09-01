@@ -38,14 +38,13 @@ kdd-intrusion-mlops/
 ```
 
 ```mermaid
-
 graph TD
-    A[Dataset KDD Cup 1999] --> B[Pipeline de Datos & EDA]
-    B --> C[Control de Calidad: quality_check.py]
-    C --> D[Entrenamiento & Registro: MLflow]
-    D --> E[Contenedorización: Docker & FastAPI]
-    E --> F[Monitoreo & Simulación: Drift & Retrain]
-```
+    A[Dataset KDD Cup 1999] --> B[Pipeline de Datos]
+    B --> C[Control de Calidad]
+    C --> D[Entrenamiento MLflow]
+    D --> E[Contenedor Docker]
+    E --> F[Monitoreo y Simulación]
+    ```
 
 ## 5. Instrucciones de Despliegue (Reproducción)
 
