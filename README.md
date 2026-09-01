@@ -37,6 +37,7 @@ kdd-intrusion-mlops/
 └── README.md                  # Documentación maestra del proyecto
 
 ```mermaid
+
 graph TD
     A[Dataset KDD Cup 1999] --> B[Pipeline de Datos & EDA]
     B --> C[Control de Calidad: quality_check.py]
