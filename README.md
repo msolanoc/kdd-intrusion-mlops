@@ -35,6 +35,7 @@ kdd-intrusion-mlops/
 ├── Dockerfile                 # Configuración de contenedorización universal
 ├── requirements.txt           # Dependencias y librerías del proyecto
 └── README.md                  # Documentación maestra del proyecto
+```
 
 ```mermaid
 
