@@ -78,8 +78,6 @@ kdd-intrusion-mlops/
 ├── requirements.txt           # Dependencias y librerías del proyecto
 └── README.md                  # Documentación maestra del proyecto
 
-## Arquitectura del Sistema
-
 ```mermaid
 graph TD
     A[Dataset KDD Cup 1999] --> B[Pipeline de Datos & EDA]
