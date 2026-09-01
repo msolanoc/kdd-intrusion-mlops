@@ -78,6 +78,17 @@ kdd-intrusion-mlops/
 ├── requirements.txt           # Dependencias y librerías del proyecto
 └── README.md                  # Documentación maestra del proyecto
 
+## Arquitectura del Sistema
+
+```mermaid
+graph TD
+    A[Dataset KDD Cup 1999] --> B[Pipeline de Datos & EDA]
+    B --> C[Control de Calidad: quality_check.py]
+    C --> D[Entrenamiento & Registro: MLflow]
+    D --> E[Contenedorización: Docker & FastAPI]
+    E --> F[Monitoreo & Simulación: Drift & Retrain]
+```
+
 ## 5. Instrucciones de Despliegue (Reproducción)
 
 Para garantizar la compatibilidad de entornos y evitar conflictos de versiones con scikit-learn, el modelo se genera de forma nativa directamente dentro del contenedor. Ejecutar los siguientes comandos en orden:
