@@ -20,51 +20,9 @@ El pipeline de MLOps sigue una arquitectura modular y desacoplada:
 5. **Contenedorización:** Empaquetado universal mediante Docker.
 El siguiente diagrama técnico detalla el flujo integral de MLOps implementado en el repositorio, donde cada componente corresponde exactamente con los scripts y archivos desarrollados:
 
-```mermaid
-graph TD
-    %% Estilo y colores profesionales
-    classDef source fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef process fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef storage fill:#fbf,stroke:#333,stroke-width:2px;
-    classDef deploy fill:#bfb,stroke:#333,stroke-width:2px;
 
-    %% Flujo del Pipeline MLOps
-    A[KDD Cup 1999 Raw Data] -->|src/ingestion/ingest.py| B(Data Ingestion & Validation)
-    B -->|Cleaned Data| C(Feature & Model Training)
-    C -->|src/training/train.py| D[MLflow Tracking Server]
-    
-    subgraph Model Registry & Artifacts
-        D -->|Metrics & Params| E[(mlruns/ Local Store)]
-        D -->|Serialized Model| F(Best Candidate Model .pkl)
-    end
 
-    F -->|Containerization| G(Dockerfile)
-    G -->|Build Image| H[kdd-intrusion-api Image]
-    
-    H -->|Docker Run / Local Serving| I(app.py - FastAPI / REST API)
-    
-    I -->|Inference Production| J(Real-time Intrusion Detection)
-    
-    %% Monitoreo y Estrategia Avanzada
-    J --> K(retrain_strategy.py)
-    
-    subgraph Monitoring & Audit
-        K --> L1[Data Drift Analysis - PSI]
-        K --> L2[Model Performance Metrics]
-        K --> L3[System Resource Metrics]
-    end
 
-    L1 --> M{Threshold Exceeded?}
-    L2 --> M
-    L3 --> M
-    
-    M -->|Yes - Trigger Alert & Retrain| C
-    M -->|No - Stable Production| J
-
-    class A source;
-    class B,C,I,K process;
-    class D,E,F storage;
-    class G,H deploy;
 
 ## 4. Repository Structure
 ```text
