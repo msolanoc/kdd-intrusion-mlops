@@ -40,3 +40,9 @@ kdd-intrusion-mlops/
 ```bash
 docker build -t kddcup-mlops-api:latest .
 ```
+
+Para verificar que los endpoints responden de forma óptima y validar que el modelo predice con éxito bajo demanda, ejecuto el script de pruebas automatizadas:
+
+```bash
+python test_api.py
+```
