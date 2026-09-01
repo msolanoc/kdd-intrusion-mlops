@@ -77,3 +77,11 @@ kdd-intrusion-mlops/
 ├── Dockerfile                 # Configuración de contenedorización universal
 ├── requirements.txt           # Dependencias y librerías del proyecto
 └── README.md                  # Documentación maestra del proyecto
+
+## 5. Instrucciones de Despliegue (Reproducción)
+
+Para garantizar la compatibilidad de entornos y evitar conflictos de versiones con scikit-learn, el modelo se genera de forma nativa directamente dentro del contenedor. Ejecutar los siguientes comandos en orden:
+
+1. **Construir la imagen:**
+   ```bash
+   docker build -t kddcup-mlops-api:latest .
