@@ -36,3 +36,8 @@ kdd-intrusion-mlops/
 └── README.md                  # Documentación maestra del proyecto
 
 ## 5. Instrucciones de Despliegue
+Para generar el modelo de forma nativa dentro del contenedor y evitar conflictos con scikit-learn, ejecuta el siguiente comando:
+
+```bash
+docker build -t kddcup-mlops-api:latest .
+```
