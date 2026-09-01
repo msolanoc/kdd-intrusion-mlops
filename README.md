@@ -37,14 +37,13 @@ kdd-intrusion-mlops/
 └── README.md                  # Documentación maestra del proyecto
 ```
 
-```mermaid
-graph TD
-    A[Dataset KDD Cup 1999] --> B[Pipeline de Datos]
-    B --> C[Control de Calidad]
-    C --> D[Entrenamiento MLflow]
-    D --> E[Contenedor Docker]
-    E --> F[Monitoreo y Simulación]
-    ```
+| Fase / Etapa | Componente / Archivo | Descripción del Proceso |
+| :--- | :--- | :--- |
+| **1. Ingesta y EDA** | Dataset KDD Cup 1999 | Carga y análisis exploratorio de datos de intrusión en red. |
+| **2. Control de Calidad** | `quality_check.py` | Validación automatizada de esquemas y nulos antes del entrenamiento. |
+| **3. Entrenamiento y Registro** | MLflow (`mlruns/`) | Registro de hiperparámetros, métricas y artefactos del modelo. |
+| **4. Contenedorización** | Docker & FastAPI (`app.py`) | Empaquetado universal y API REST para inferencia en producción. |
+| **5. Monitoreo y Simulación** | Drifts & Retrain | Evaluación de estabilidad (PSI) y lógica de reentrenamiento. |
 
 ## 5. Instrucciones de Despliegue (Reproducción)
 
