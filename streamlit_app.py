@@ -48,7 +48,7 @@ if st.button("Ejecutar Predicción"):
 
     # Enviar la petición POST al contenedor de FastAPI en el puerto 8000
     payload = {"features": features_list}
-    response = requests.post("http://localhost:8000/predict", json=payload)
+    response = requests.post("https://kdd-intrusion-mlops.onrender.com/predict", json=payload)
 
     if response.status_code == 200:
       data = response.json()
