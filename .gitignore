@@ -19,8 +19,4 @@ datasets/
 
 # Configuraciones del sistema operativo
 .DS_Store
-Thumbs.dbvenv/
-__pycache__/
-.ipynb_checkpoints/
-.pytest_cache/
-*.csv
+Thumbs.db
