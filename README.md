@@ -2,7 +2,7 @@
 
 Sistema de detección de intrusiones en redes basado en el conjunto de datos KDD Cup 1999, diseñado bajo un enfoque integral de ingeniería MLOps de grado industrial para garantizar reproducibilidad, trazabilidad, despliegue continuo y monitoreo automatizado del ciclo de vida del modelo.
 
----
+
 
 ## 🚀 Enlaces de Producción (Live Demos)
 
